@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8021:8021"
+    environment:
+      - DB_HOST=db
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - DB_NAME=blogdb
+      - DB_DIALECT=mysql
+      - SESSION_SECRET=mysecretkey
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+      - /app/node_modules/
+  
+
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: blogdb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
