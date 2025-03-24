@@ -54,3 +54,6 @@ sequelize
   .catch((err) => console.error("Error syncing database:", err));
 
 module.exports = db;
+
+
+
